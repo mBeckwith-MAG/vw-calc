@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>VW Calculator</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col display-5 text-center m-4">
+                    VW Calculator
+                    <div class="btn btn-danger" v-if="invoiceAmt > 0 || msrpAmt > 0 || baseMsrpAmt > 0 || destinationAmt > 0 || optionsAmt > 0 || paintAmt > 0" @click="clearForm()">
+                        <span class="material-icons">delete</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="align-items-center">
+                <div class="form-group row mt-3">
+                    <label for="isModelInput" class="col-sm-2 col-form-label">Model ID.4?</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" class="form-check-input" id="isModelInput" v-model="isModelID">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="!isModelID">
+                    <label for="invoiceAmtInput" class="col-sm-2 col-form-label">Invoice</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="invoiceAmtInput" placeholder="0.00" v-model="invoiceAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="!isModelID">
+                    <label for="msrpAmtInput" class="col-sm-2 col-form-label">MSRP</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="msrpAmtInput" placeholder="0.00" v-model="msrpAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1">
+                    <label for="baseMsrpAmtInput" class="col-sm-2 col-form-label">Base MSRP</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="baseMsrpAmtInput" placeholder="0.00" v-model="baseMsrpAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="!isModelID">
+                    <label for="destinationAmtInput" class="col-sm-2 col-form-label">DESTINATION</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="destinationAmtInput" placeholder="0.00" v-model="destinationAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="!isModelID">
+                    <label for="totalAmtLabel" class="col-sm-2 col-form-label">TOTAL</label>
+                    <div class="col-sm-10">
+                        <label id="totalAmtLabel">{{ getTotal }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="isModelID">
+                    <label for="optionsAmtInput" class="col-sm-2 col-form-label">Options Total</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="optionsAmtInput" placeholder="0.00" v-model="optionsAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="isModelID">
+                    <label for="paintAmtInput" class="col-sm-2 col-form-label">Paint</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="paintAmtInput" placeholder="0.00" v-model="paintAmt">
+                    </div>
+                </div>
+                <div class="form-group row mt-1" :class="{'text-danger fw-bold mt-5' : !isModelID}">
+                    <label for="holdbackAmtLabel" class="col-sm-2 col-form-label">Holdback</label>
+                    <div class="col-sm-10">
+                        <label id="holdbackAmtLabel">{{ getHoldback }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="isModelID">
+                    <label for="optionsAmtLabel" class="col-sm-2 col-form-label">Options Holdback</label>
+                    <div class="col-sm-10">
+                        <label id="optionsAmtLabel">{{ getOptionsHB }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1" v-if="isModelID">
+                    <label for="paintAmtLabel" class="col-sm-2 col-form-label">Paint Holdback</label>
+                    <div class="col-sm-10">
+                        <label id="paintAmtLabel">{{ getPaintHB }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-5 text-danger fw-bold" v-if="isModelID">
+                    <label for="totalHBAmtLabel" class="col-sm-2 col-form-label">Total Holdback</label>
+                    <div class="col-sm-10">
+                        <label id="totalHBAmtLabel">{{ getTotalHB }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
+                    <label for="fpaAmtLabel" class="col-sm-2 col-form-label">FPA</label>
+                    <div class="col-sm-10">
+                        <label id="fpaAmtLabel">{{ getFPA }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1 text-danger fw-bold">
+                    <label for="idmAmtLabel" class="col-sm-2 col-form-label">IDM</label>
+                    <div class="col-sm-10">
+                        <label id="idmAmtLabel">{{ getIDM }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
+                    <label for="transAmtLabel" class="col-sm-2 col-form-label">Trans Credit</label>
+                    <div class="col-sm-10">
+                        <label id="transAmtLabel">{{ getTrans }}</label>
+                    </div>
+                </div>
+                <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
+                    <label for="vpbAmtLabel" class="col-sm-2 col-form-label">VPB</label>
+                    <div class="col-sm-10">
+                        <label id="vpbAmtLabel">{{ getVPB }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+    <script src="./app.js" type="module"></script>
+    </body>
+</html>
