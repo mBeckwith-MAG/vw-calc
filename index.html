@@ -15,7 +15,7 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col display-5 text-center m-4">
+                <div class="col-10 display-5 text-center m-4">
                     VW Calculator
                     <div class="btn btn-danger" v-if="invoiceAmt > 0 || msrpAmt > 0 || baseMsrpAmt > 0 || destinationAmt > 0 || optionsAmt > 0 || paintAmt > 0" @click="clearForm()">
                         <span class="material-icons">delete</span>
@@ -25,98 +25,98 @@
 
             <div class="align-items-center">
                 <div class="form-group row mt-3">
-                    <label for="isModelInput" class="col-sm-2 col-form-label">Model ID.4?</label>
-                    <div class="col-sm-10">
+                    <label for="isModelInput" class="col-sm-4 col-form-label">Model ID.4?</label>
+                    <div class="col-sm-8">
                         <input type="checkbox" class="form-check-input" id="isModelInput" v-model="isModelID">
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="!isModelID">
-                    <label for="invoiceAmtInput" class="col-sm-2 col-form-label">Invoice</label>
-                    <div class="col-sm-10">
+                    <label for="invoiceAmtInput" class="col-sm-4 col-form-label">Invoice</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="invoiceAmtInput" placeholder="0.00" v-model="invoiceAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="!isModelID">
-                    <label for="msrpAmtInput" class="col-sm-2 col-form-label">MSRP</label>
-                    <div class="col-sm-10">
+                    <label for="msrpAmtInput" class="col-sm-4 col-form-label">MSRP</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="msrpAmtInput" placeholder="0.00" v-model="msrpAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1">
-                    <label for="baseMsrpAmtInput" class="col-sm-2 col-form-label">Base MSRP</label>
-                    <div class="col-sm-10">
+                    <label for="baseMsrpAmtInput" class="col-sm-4 col-form-label">Base MSRP</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="baseMsrpAmtInput" placeholder="0.00" v-model="baseMsrpAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="!isModelID">
-                    <label for="destinationAmtInput" class="col-sm-2 col-form-label">DESTINATION</label>
-                    <div class="col-sm-10">
+                    <label for="destinationAmtInput" class="col-sm-4 col-form-label">DESTINATION</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="destinationAmtInput" placeholder="0.00" v-model="destinationAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="!isModelID">
-                    <label for="totalAmtLabel" class="col-sm-2 col-form-label">TOTAL</label>
-                    <div class="col-sm-10">
+                    <label for="totalAmtLabel" class="col-sm-4 col-form-label">TOTAL</label>
+                    <div class="col-sm-8">
                         <label id="totalAmtLabel">{{ getTotal }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="isModelID">
-                    <label for="optionsAmtInput" class="col-sm-2 col-form-label">Options Total</label>
-                    <div class="col-sm-10">
+                    <label for="optionsAmtInput" class="col-sm-4 col-form-label">Options Total</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="optionsAmtInput" placeholder="0.00" v-model="optionsAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="isModelID">
-                    <label for="paintAmtInput" class="col-sm-2 col-form-label">Paint</label>
-                    <div class="col-sm-10">
+                    <label for="paintAmtInput" class="col-sm-4 col-form-label">Paint</label>
+                    <div class="col-sm-8">
                         <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control" id="paintAmtInput" placeholder="0.00" v-model="paintAmt">
                     </div>
                 </div>
                 <div class="form-group row mt-1" :class="{'text-danger fw-bold mt-5' : !isModelID}">
-                    <label for="holdbackAmtLabel" class="col-sm-2 col-form-label">Holdback</label>
-                    <div class="col-sm-10">
+                    <label for="holdbackAmtLabel" class="col-sm-4 col-form-label">Holdback</label>
+                    <div class="col-sm-8">
                         <label id="holdbackAmtLabel">{{ getHoldback }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="isModelID">
-                    <label for="optionsAmtLabel" class="col-sm-2 col-form-label">Options Holdback</label>
-                    <div class="col-sm-10">
+                    <label for="optionsAmtLabel" class="col-sm-4 col-form-label">Options Holdback</label>
+                    <div class="col-sm-8">
                         <label id="optionsAmtLabel">{{ getOptionsHB }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1" v-if="isModelID">
-                    <label for="paintAmtLabel" class="col-sm-2 col-form-label">Paint Holdback</label>
-                    <div class="col-sm-10">
+                    <label for="paintAmtLabel" class="col-sm-4 col-form-label">Paint Holdback</label>
+                    <div class="col-sm-8">
                         <label id="paintAmtLabel">{{ getPaintHB }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-5 text-danger fw-bold" v-if="isModelID">
-                    <label for="totalHBAmtLabel" class="col-sm-2 col-form-label">Total Holdback</label>
-                    <div class="col-sm-10">
+                    <label for="totalHBAmtLabel" class="col-sm-4 col-form-label">Total Holdback</label>
+                    <div class="col-sm-8">
                         <label id="totalHBAmtLabel">{{ getTotalHB }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
-                    <label for="fpaAmtLabel" class="col-sm-2 col-form-label">FPA</label>
-                    <div class="col-sm-10">
+                    <label for="fpaAmtLabel" class="col-sm-4 col-form-label">FPA</label>
+                    <div class="col-sm-8">
                         <label id="fpaAmtLabel">{{ getFPA }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1 text-danger fw-bold">
-                    <label for="idmAmtLabel" class="col-sm-2 col-form-label">IDM</label>
-                    <div class="col-sm-10">
+                    <label for="idmAmtLabel" class="col-sm-4 col-form-label">IDM</label>
+                    <div class="col-sm-8">
                         <label id="idmAmtLabel">{{ getIDM }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
-                    <label for="transAmtLabel" class="col-sm-2 col-form-label">Trans Credit</label>
-                    <div class="col-sm-10">
+                    <label for="transAmtLabel" class="col-sm-4 col-form-label">Trans Credit</label>
+                    <div class="col-sm-8">
                         <label id="transAmtLabel">{{ getTrans }}</label>
                     </div>
                 </div>
                 <div class="form-group row mt-1 text-danger fw-bold" v-if="!isModelID">
-                    <label for="vpbAmtLabel" class="col-sm-2 col-form-label">VPB</label>
-                    <div class="col-sm-10">
+                    <label for="vpbAmtLabel" class="col-sm-4 col-form-label">VPB</label>
+                    <div class="col-sm-8">
                         <label id="vpbAmtLabel">{{ getVPB }}</label>
                     </div>
                 </div>
