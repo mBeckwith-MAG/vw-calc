@@ -26,11 +26,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="btn-check" type="radio" name="modelOptions" id="idRadio" value="id4" v-model="modelChoice">
-                            <label class="btn btn-outline-info btn-sm btn-block" for="idRadio">ID 4</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="btn-check" type="radio" name="modelOptions" id="buzzRadio" value="buzz" v-model="modelChoice">
-                            <label class="btn btn-outline-info btn-sm btn-block" for="buzzRadio">BUZZ</label>
+                            <label class="btn btn-outline-info btn-sm btn-block" for="idRadio">ID.4 / BUZZ</label>
                         </div>
                     </div>
                     <div class="btn btn-danger btn-sm btn-block" v-if="invoiceAmt > 0 || msrpAmt > 0 || baseMsrpAmt > 0 || destinationAmt > 0 || optionsAmt > 0 || paintAmt > 0" @click="clearForm()">
