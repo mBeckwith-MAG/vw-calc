@@ -11,6 +11,24 @@ createApp({
             optionsAmt: ref(null),
             paintAmt: ref(null),
 
+            calculated: computed(() => {
+                if(this.modelChoice === 'gen') {
+                    if(
+                        this.invoiceAmt != null &&
+                        this.msrpAmt != null &&
+                        this.baseMsrpAmt != null &&
+                        this.destinationAmt != null
+                    ) return true
+                } else {
+                    if(
+                        this.baseMsrpAmt != null &&
+                        this.optionsAmt != null &&
+                        this.paintAmt != null
+                    ) return true
+                }
+                return false
+            }),
+
             getTotal: computed(() => {
                 if(this.msrpAmt > 0 && this.destinationAmt > 0) {
                     return Math.round(this.msrpAmt - this.destinationAmt).toFixed(2)
