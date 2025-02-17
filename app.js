@@ -81,7 +81,16 @@ createApp({
                 return Math.round(this.baseMsrpAmt * 0.008).toFixed(2)
             }),
             getTrans: computed(() => {
-                return (this.baseMsrpAmt * 0.0135).toFixed(2)
+                // Base MSRP * 1.35%
+                // if value is under 50 (any hundred amount) round down, else round up next dollar amount
+                if (baseMsrpAmt.value != null) {
+                    const value = (baseMsrpAmt.value * 0.0135).toFixed(2)
+                    let val = Math.floor(Math.round(Number(value)))
+                    const dollarVal = val % 100
+                    if (dollarVal > 50) return (val + 1).toFixed(2)
+                    return (val).toFixed(2)
+                }
+                return 0.00
             }),
             getVPB: computed(() => {
                 return Math.round(this.baseMsrpAmt * 0.019).toFixed(2)
