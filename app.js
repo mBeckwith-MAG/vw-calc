@@ -84,7 +84,7 @@ createApp({
                 // Base MSRP * 1.35%
                 // if value is under 50 (any hundred amount) round down, else round up next dollar amount
                 // if (this.baseMsrpAmt.value != null) {
-                    const value = (baseMsrpAmt.value * 0.0135).toFixed(2)
+                    const value = (this.baseMsrpAmt.value * 0.0135).toFixed(2)
                     let val = Math.floor(Math.round(Number(value)))
                     const dollarVal = val % 100
                     if (dollarVal > 50) {
