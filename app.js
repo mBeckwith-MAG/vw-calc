@@ -87,8 +87,11 @@ createApp({
                     const value = (baseMsrpAmt.value * 0.0135).toFixed(2)
                     let val = Math.floor(Math.round(Number(value)))
                     const dollarVal = val % 100
-                    if (dollarVal > 50) return (val + 1).toFixed(2)
-                    return (val).toFixed(2)
+                    if (dollarVal > 50) {
+                        return (val + 1).toFixed(2)
+                    } else {
+                        return (val).toFixed(2)
+                    }
                 }
                 return 0.00
             }),
