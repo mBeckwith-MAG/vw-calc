@@ -93,7 +93,7 @@ createApp({
                         return (val).toFixed(2)
                     }
                 }
-                return 0.00
+                // return 0.00
             }),
             getVPB: computed(() => {
                 return Math.round(this.baseMsrpAmt * 0.019).toFixed(2)
